@@ -30,7 +30,8 @@ if st.checkbox('Show raw data'):
 
 st.subheader('Number of pickups by hour')
 
-hour_to_filter = st.slider('slide the hour bar to change the fig below', 0, 23, 17)
+hour_to_filter = st.sidebar.slider('slide the hour bar to change the fig below', 0, 23, 17)
+
 hist_values , bins = np.histogram(
     data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))
 
