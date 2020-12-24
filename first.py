@@ -37,19 +37,42 @@ pressed = left_column.button('喜歡請給讚?')
 if pressed:
     right_column.write("我也是100萬喜歡歐!")
 
-expander = st.beta_expander("長輩圖功能")
-expander.write("早安，凡事順心就好")
+expander = st.beta_expander("猜猜點開來有什麼")
+expander.write("是小兔的哇")
 
-'Starting a long computation...'
+# 'Starting a long computation...'
 
-# Add a placeholder
-latest_iteration = st.empty()
-bar = st.progress(0)
+# # Add a placeholder
+# latest_iteration = st.empty()
+# bar = st.progress(0)
+
+# for i in range(100):
+#   # Update the progress bar with each iteration.
+#   latest_iteration.text(f'Iteration {i+1}')
+#   bar.progress(i + 1)
+#   time.sleep(0.1)
+
+# '...and now we\'re done!'
+
+progress_bar = st.progress(0)
+status_text = st.empty()
+chart = st.line_chart(np.random.randn(10, 2))
 
 for i in range(100):
-  # Update the progress bar with each iteration.
-  latest_iteration.text(f'Iteration {i+1}')
-  bar.progress(i + 1)
-  time.sleep(0.1)
+    # Update progress bar.
+    progress_bar.progress(i + 1)
 
-'...and now we\'re done!'
+    new_rows = np.random.randn(10, 2)
+
+    # Update status text.
+    status_text.text(
+        '充電中，此刻的電流數據: %s' % new_rows[-1, 1])
+
+    # Append data to the chart.
+    chart.add_rows(new_rows)
+
+    # Pretend we're doing some computation that takes time.
+    time.sleep(0.1)
+
+status_text.text('Done!')
+st.balloons()
