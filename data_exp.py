@@ -24,16 +24,25 @@ data = load_data(10000)
 # Notify the reader that the data was successfully loaded.
 data_load_state.text("Done! (using st.cache)")
 
-st.subheader('Raw data')
-st.dataframe(data)
+if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(data)
 
 st.subheader('Number of pickups by hour')
 
-hist_values = np.histogram(
-    data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-st.bar_chart(hist_values)
-h = [17]
 hour_to_filter = st.slider('slide the hour bar to change the fig below', 0, 23, 17)
+hist_values , bins = np.histogram(
+    data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))
+
+hourly = pd.DataFrame({'bins':bins[:-1], 'hour':hist_values})
+hourly.loc[hourly.bins == hour_to_filter, 'hour_concerned'] = hourly.hour
+hourly.loc[hourly.bins == hour_to_filter , 'hour'] = 0
+hourly.drop(columns = ['bins'], inplace=True)
+hourly = hourly.fillna(0)
+#st.write(hourly)
+st.bar_chart(hourly)
+
+
 filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 #filtered_data = data
 #st.subheader(f'Map of all pickups at {h}o\'clock')
