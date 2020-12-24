@@ -30,10 +30,13 @@ if st.checkbox('Show raw data'):
 
 st.subheader('Number of pickups by hour')
 
-hour_to_filter = st.sidebar.slider('slide the hour bar to change the fig below', 0, 23, 17)
+bar_slot = st.empty()
+hour_to_filter = st.slider('slide the hour bar to change the fig below', 0, 23, 17)
 
 hist_values , bins = np.histogram(
     data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))
+
+filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
 
 hourly = pd.DataFrame({'bins':bins[:-1], 'hour':hist_values})
 hourly.loc[hourly.bins == hour_to_filter, 'hour_concerned'] = hourly.hour
@@ -41,13 +44,7 @@ hourly.loc[hourly.bins == hour_to_filter , 'hour'] = 0
 hourly.drop(columns = ['bins'], inplace=True)
 hourly = hourly.fillna(0)
 #st.write(hourly)
-st.bar_chart(hourly, height=200)
-
-
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
-#filtered_data = data
-#st.subheader(f'Map of all pickups at {h}o\'clock')
-#st.map(filtered_data)
+bar_slot.bar_chart(hourly, height=200)
 
 
 st.pydeck_chart(pdk.Deck(

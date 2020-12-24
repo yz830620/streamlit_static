@@ -1,22 +1,21 @@
-import matplotlib.pyplot as plt
+import streamlit as st
+import time
 import numpy as np
 
-samples = np.random.normal(0,100,10000)
+st.text('This will appear first')
+# Appends some text to the app.
 
-hist, bins = np.histogram(samples, bins=20)
+my_slot1 = st.empty()
+# Appends an empty slot to the app. We'll use this later.
 
-thresh = -200
+my_slot2 = st.empty()
+# Appends another empty slot.
 
-mask = bins < thresh
-below_thresh = np.array(bins[mask].tolist() + [thresh])
+st.text('This will appear last')
+# Appends some more text to the app.
 
-plt.figure(figsize=(10,6))
+my_slot1.text('This will appear second')
+# Replaces the first empty slot with a text string.
 
-# original histogram
-plt.bar(bins[:-1],hist, width=np.diff(bins), color='C0', align='edge');
-
-# below threshold
-plt.bar(below_thresh[:-1], hist[mask[:-1]], 
-        width=np.diff(below_thresh), color='C1',
-        align='edge')
-plt.show()
+my_slot2.line_chart(np.random.randn(20, 2))
+# Replaces the second empty slot with a chart.
