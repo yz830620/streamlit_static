@@ -40,7 +40,7 @@ hourly.loc[hourly.bins == hour_to_filter , 'hour'] = 0
 hourly.drop(columns = ['bins'], inplace=True)
 hourly = hourly.fillna(0)
 #st.write(hourly)
-st.bar_chart(hourly)
+st.bar_chart(hourly, height=200)
 
 
 filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
