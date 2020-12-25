@@ -53,7 +53,7 @@ x_train, x_test, y_train, y_test = split(df)
  
  
 st.sidebar.subheader("Select your Classifier")
-classifier = st.sidebar.selectbox("Classifier", ("Decision Tree", "Logistic Regression", "Random Forest"))
+classifier = st.sidebar.selectbox("Classifier", ("Decision Tree", "Logistic Regression", "Random Forest", "Support Vector Machine (SVM)"))
 if classifier == 'Decision Tree':
     st.sidebar.subheader("Model parameters")
     #choose parameters
@@ -107,7 +107,25 @@ if classifier == 'Random Forest':
     if st.sidebar.checkbox("Show raw data", False):
         st.subheader("Diabetes Raw Dataset")
         st.write(df) 
- 
+
+if classifier == 'Support Vector Machine (SVM)':
+    st.sidebar.subheader("Model Hyperparameters")
+    C = st.sidebar.number_input("C (Regularizaion parameter)", 0.01, 10.0, step=0.01, key='C')
+    kernel = st.sidebar.radio("Kernel",("rbf", "linear"), key='kernel')
+    gamma = st.sidebar.radio("Gamma (Kernel Coefficient", ("scale", "auto"), key = 'gamma')
+    metrics = st.sidebar.multiselect("What metrics to plot?",('Confusion Matrix', 'ROC Curve', 'Precision-Recall Curve'))
+
+
+    if st.sidebar.button("Classfiy", key='classify'):
+        st.subheader("Support Vector Machine (SVM Results")
+        model = SVC(C=C, kernel=kernel, gamma=gamma)
+        model.fit(x_train, y_train)
+        accuracy = model.score(x_test, y_test)
+        y_pred = model.predict(x_test)
+        st.write("Accuracy ", accuracy.round(2))
+        st.write("Precision: ", precision_score(y_test, y_pred, labels=class_names).round(2))
+        st.write("Recall: ", recall_score(y_test, y_pred, labels=class_names).round(2))
+        plot_metrics(metrics)
  
 if __name__ == '__main__':
     main()
