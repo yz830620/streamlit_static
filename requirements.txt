@@ -1,5 +1,5 @@
 pnslib==0.1.0a1
-opencv-contrib-python-headless==4.5.1.48
+opencv-python-headless==4.5.1.48
 streamlit==0.73.0
 matplotlib==3.3.3
 numpy==1.19.4
