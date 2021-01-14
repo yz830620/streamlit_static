@@ -38,7 +38,7 @@ if pressed:
     right_column.write("我也是100萬喜歡歐!")
 
 expander = st.beta_expander("猜猜點開來有什麼")
-expander.write("是小兔的哇")
+expander.write("點開來有驚喜")
 
 # 'Starting a long computation...'
 
