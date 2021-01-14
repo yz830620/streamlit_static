@@ -21,8 +21,8 @@ def face_reg(img):
 
 
 st.title("Detect faces")
-st.markdown('Please use .jpg file')
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg",'jpeg'])
+st.markdown('Please use .jpg , .jpeg and .png file')
+uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", 'png'])
 
 if uploaded_file is not None:
     image = np.array(Image.open(uploaded_file))
