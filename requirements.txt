@@ -1,4 +1,3 @@
-pnslib==0.1.0a1
 git+git://github.com/PnS2019/pnslib.git
 numpy==1.19.4
 opencv-python-headless
