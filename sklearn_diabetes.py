@@ -13,9 +13,11 @@ from sklearn.metrics import plot_confusion_matrix, plot_roc_curve, plot_precisio
 from sklearn.metrics import precision_score, recall_score
 st.set_option('deprecation.showPyplotGlobalUse', False)
 def main():
-    st.title('Predicting Diabetes Web App')
-    st.markdown('Affected by Diabetes or not ?')
-    st.title('Model Selection Panel')
+    st.title('Diabetes models hyper-parameter tuning Web App')
+    st.markdown('Pick the classifier you prefer, setup the parameter for it')
+    st.markdown('Select the metrics(multiple) and click "classify". It will plot the figure')
+    
+    st.subheader('Model Selection Panel')
     st.markdown("Choose your model and its parameters")
     #@st.cache(allow_output_mutation=True)
     @st.cache(persist=True)
