@@ -21,6 +21,7 @@ def face_reg(img):
 
 
 st.title("Detect faces")
+st.markdown('Please use .jpg file')
 uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 
 if uploaded_file is not None:
